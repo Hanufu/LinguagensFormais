@@ -16,7 +16,8 @@ func apresentacao() {
 func mostrarFita(i int, fita []string) {
 	cmd := exec.Command("cmd", "/c", "cls")
 	cmd.Stdout = os.Stdout
-	time.Sleep(1 * time.Second)
+	//time.Sleep(1 * time.Second)
+	time.Sleep(500 * time.Millisecond)
 	cmd.Run()
 
 	// Imprime a fita, destacando a posição do cabeçote de leitura em vermelho
@@ -80,6 +81,7 @@ func q3(i int, fita []string) {
 
 // Encontra cabeçote de fita e R
 func q4(i int, fita []string) {
+	mostrarFita(i, fita)
 	for {
 		if fita[i] == ">" {
 			mostrarFita(i, fita)
