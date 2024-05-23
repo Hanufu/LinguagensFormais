@@ -16,21 +16,20 @@ func mostrarFita(fita []string) {
 	cmd := exec.Command("cmd", "/c", "cls")
 	cmd.Stdout = os.Stdout
 	time.Sleep(1 * time.Second)
-	//cmd.Run()
+	cmd.Run()
 	fmt.Println(fita)
 }
 
 func main() {
 	i := 0
-	fita := []string{">", "1", "1", "1", "1", "1", "b", "b", "b", "b", "b", "b"}
-	//apresentacao()
+	fita := []string{">", "1", "1", "1", "1", "1", "1", "1", "1", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b"}
+	apresentacao()
 	q0(i, fita)
 
 }
 
 // Encontra b e L
 func q0(i int, fita []string) {
-	fmt.Print(i)
 	mostrarFita(fita)
 	for {
 		if fita[i] == "b" {
@@ -45,7 +44,6 @@ func q0(i int, fita []string) {
 func q1(i int, fita []string) {
 	if fita[i] == "1" {
 		fita[i] = "b"
-		fmt.Print(i)
 		mostrarFita(fita)
 		q2(i-1, fita)
 	}
@@ -55,7 +53,6 @@ func q1(i int, fita []string) {
 func q2(i int, fita []string) {
 	if fita[i] == "1" {
 		fita[i] = "b"
-		fmt.Print(i)
 		mostrarFita(fita)
 		q3(i-1, fita)
 	}
@@ -65,7 +62,6 @@ func q2(i int, fita []string) {
 func q3(i int, fita []string) {
 	if fita[i] == "1" {
 		fita[i] = "b"
-		fmt.Print(i)
 		mostrarFita(fita)
 		q4(i-1, fita)
 	}
@@ -75,7 +71,6 @@ func q3(i int, fita []string) {
 func q4(i int, fita []string) {
 	for {
 		if fita[i] == ">" {
-			fmt.Print(i)
 			mostrarFita(fita)
 			q5(i+1, fita)
 		} else {
@@ -90,7 +85,6 @@ func q5(i int, fita []string) {
 		if fita[i] == "1" {
 			fita[i] = "x"
 			i++
-			fmt.Print(i)
 			mostrarFita(fita)
 		} else if fita[i] == "b" {
 			q6(i, fita)
@@ -98,17 +92,20 @@ func q5(i int, fita []string) {
 	}
 }
 
-// Desmarcador, transforma x em 1
 func q6(i int, fita []string) {
 	for {
 		if fita[i] == "b" {
 			i--
-		} else if fita[i] == "x" {
+		}
+		if fita[i] == "1" {
+			i--
+		}
+		if fita[i] == "x" {
 			fita[i] = "1"
-			fmt.Print(i)
 			mostrarFita(fita)
 			q7(i+1, fita)
-		} else if fita[i] == ">" {
+		}
+		if fita[i] == ">" {
 			q11()
 		}
 	}
@@ -116,20 +113,20 @@ func q6(i int, fita []string) {
 
 // Loop de multiplicação, adiciona coeficiente de x-1 para cada x encontrado.
 func q7(i int, fita []string) {
-	if fita[i] == "b" {
-		fita[i] = "1"
-		fmt.Print(i)
-		mostrarFita(fita)
-		q8(i+1, fita)
-	}
-	if fita[i] == "1" {
-		i++
+	for {
+		if fita[i] == "1" {
+			i++
+		}
+		if fita[i] == "b" {
+			fita[i] = "1"
+			mostrarFita(fita)
+			q8(i+1, fita)
+		}
 	}
 }
 func q8(i int, fita []string) {
 	if fita[i] == "b" {
 		fita[i] = "1"
-		fmt.Print(i)
 		mostrarFita(fita)
 		q9(i+1, fita)
 	}
@@ -137,7 +134,6 @@ func q8(i int, fita []string) {
 func q9(i int, fita []string) {
 	if fita[i] == "b" {
 		fita[i] = "1"
-		fmt.Print(i)
 		mostrarFita(fita)
 		q6(i+1, fita)
 	}
@@ -145,5 +141,6 @@ func q9(i int, fita []string) {
 
 // finaliza maquina
 func q11() {
-	//fmt.Println("Operação Concluída")
+	fmt.Println("Operação Concluída")
+	os.Exit(0)
 }
