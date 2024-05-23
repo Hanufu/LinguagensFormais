@@ -12,12 +12,22 @@ func apresentacao() {
 	fmt.Println("Resolvendo exprssão: 4(x-3)\t")
 	time.Sleep(4 * time.Second)
 }
-func mostrarFita(fita []string) {
+
+func mostrarFita(i int, fita []string) {
 	cmd := exec.Command("cmd", "/c", "cls")
 	cmd.Stdout = os.Stdout
 	time.Sleep(1 * time.Second)
 	cmd.Run()
-	fmt.Println(fita)
+
+	// Imprime a fita, destacando a posição do cabeçote de leitura em vermelho
+	for j, c := range fita {
+		if j == i {
+			fmt.Printf("\033[31m%s\033[0m", c)
+		} else {
+			fmt.Print(c)
+		}
+	}
+	fmt.Println()
 }
 
 func main() {
@@ -30,12 +40,13 @@ func main() {
 
 // Encontra b e L
 func q0(i int, fita []string) {
-	mostrarFita(fita)
+	mostrarFita(i, fita)
 	for {
 		if fita[i] == "b" {
 			q1(i-1, fita)
 		} else {
 			i++
+			mostrarFita(i, fita)
 		}
 	}
 }
@@ -44,7 +55,7 @@ func q0(i int, fita []string) {
 func q1(i int, fita []string) {
 	if fita[i] == "1" {
 		fita[i] = "b"
-		mostrarFita(fita)
+		mostrarFita(i, fita)
 		q2(i-1, fita)
 	}
 }
@@ -53,7 +64,7 @@ func q1(i int, fita []string) {
 func q2(i int, fita []string) {
 	if fita[i] == "1" {
 		fita[i] = "b"
-		mostrarFita(fita)
+		mostrarFita(i, fita)
 		q3(i-1, fita)
 	}
 }
@@ -62,7 +73,7 @@ func q2(i int, fita []string) {
 func q3(i int, fita []string) {
 	if fita[i] == "1" {
 		fita[i] = "b"
-		mostrarFita(fita)
+		mostrarFita(i, fita)
 		q4(i-1, fita)
 	}
 }
@@ -71,10 +82,11 @@ func q3(i int, fita []string) {
 func q4(i int, fita []string) {
 	for {
 		if fita[i] == ">" {
-			mostrarFita(fita)
+			mostrarFita(i, fita)
 			q5(i+1, fita)
 		} else {
 			i--
+			mostrarFita(i, fita)
 		}
 	}
 }
@@ -85,7 +97,7 @@ func q5(i int, fita []string) {
 		if fita[i] == "1" {
 			fita[i] = "x"
 			i++
-			mostrarFita(fita)
+			mostrarFita(i, fita)
 		} else if fita[i] == "b" {
 			q6(i, fita)
 		}
@@ -96,13 +108,15 @@ func q6(i int, fita []string) {
 	for {
 		if fita[i] == "b" {
 			i--
+			mostrarFita(i, fita)
 		}
 		if fita[i] == "1" {
 			i--
+			mostrarFita(i, fita)
 		}
 		if fita[i] == "x" {
 			fita[i] = "1"
-			mostrarFita(fita)
+			mostrarFita(i, fita)
 			q7(i+1, fita)
 		}
 		if fita[i] == ">" {
@@ -116,10 +130,11 @@ func q7(i int, fita []string) {
 	for {
 		if fita[i] == "1" {
 			i++
+			mostrarFita(i, fita)
 		}
 		if fita[i] == "b" {
 			fita[i] = "1"
-			mostrarFita(fita)
+			mostrarFita(i, fita)
 			q8(i+1, fita)
 		}
 	}
@@ -127,14 +142,14 @@ func q7(i int, fita []string) {
 func q8(i int, fita []string) {
 	if fita[i] == "b" {
 		fita[i] = "1"
-		mostrarFita(fita)
+		mostrarFita(i, fita)
 		q9(i+1, fita)
 	}
 }
 func q9(i int, fita []string) {
 	if fita[i] == "b" {
 		fita[i] = "1"
-		mostrarFita(fita)
+		mostrarFita(i, fita)
 		q6(i+1, fita)
 	}
 }
